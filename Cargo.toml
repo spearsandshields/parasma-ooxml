@@ -33,7 +33,7 @@ ooxml-codegen = { path = "crates/ooxml-codegen", version = "0.1.1-alpha.2" }
 ooxml-corpus = { path = "crates/ooxml-corpus" }
 
 # External dependencies
-zip = "7"
+zip = { version = "7", default-features = false, features = ["deflate"] }
 quick-xml = { version = "0.39", features = ["serialize"] }
 thiserror = "2"
 insta = "1"
