@@ -756,6 +756,14 @@ pub trait DrawingExt {
 
     /// Get all image relationship IDs (inline + anchored).
     fn all_image_rel_ids(&self) -> Vec<&str>;
+
+    /// Get the `<wp:extent cx="..." cy="..."/>` of the first inline or
+    /// anchored drawing inside this `<w:drawing>` element, in EMU.
+    ///
+    /// Only the first `<wp:inline>` or `<wp:anchor>` is consulted; a
+    /// `<w:drawing>` carries one. Returns `None` when that drawing has no
+    /// extent or either attribute is missing or unparsable.
+    fn extent_emu(&self) -> Option<(i64, i64)>;
 }
 
 #[cfg(all(feature = "wml-drawings", feature = "extra-children"))]
@@ -788,6 +796,38 @@ impl DrawingExt for types::CTDrawing {
         let mut ids = self.inline_image_rel_ids();
         ids.extend(self.anchored_image_rel_ids());
         ids
+    }
+
+    fn extent_emu(&self) -> Option<(i64, i64)> {
+        for child in &self.extra_children {
+            let ooxml_xml::RawXmlNode::Element(elem) = &child.node else {
+                continue;
+            };
+            let local = local_name_of(&elem.name);
+            if local != "inline" && local != "anchor" {
+                continue;
+            }
+            for inner in &elem.children {
+                let ooxml_xml::RawXmlNode::Element(ext_elem) = inner else {
+                    continue;
+                };
+                if local_name_of(&ext_elem.name) != "extent" {
+                    continue;
+                }
+                let cx = ext_elem
+                    .attributes
+                    .iter()
+                    .find(|(k, _)| k == "cx")
+                    .and_then(|(_, v)| v.parse::<i64>().ok())?;
+                let cy = ext_elem
+                    .attributes
+                    .iter()
+                    .find(|(k, _)| k == "cy")
+                    .and_then(|(_, v)| v.parse::<i64>().ok())?;
+                return Some((cx, cy));
+            }
+        }
+        None
     }
 }
 
