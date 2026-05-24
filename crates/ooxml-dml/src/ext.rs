@@ -3,8 +3,43 @@
 //! Provides convenience methods for working with generated DML types.
 
 use crate::types::CTShapeProperties;
+
 #[cfg(feature = "dml-text")]
 use crate::types::*;
+
+// ─── Chart parsing convenience ──────────────────────────────────────────────
+
+/// Parse a `ChartSpace` from raw XML bytes.
+///
+/// Convenience wrapper around `FromXml` that handles reader setup.
+/// Use this to parse `word/charts/chart1.xml` from an OOXML package.
+#[cfg(feature = "dml-charts")]
+pub fn parse_chart_space(xml: &[u8]) -> Result<crate::types::ChartSpace, ooxml_xml::ParseError> {
+    use ooxml_xml::FromXml;
+    use quick_xml::Reader;
+    use quick_xml::events::Event;
+    use std::io::Cursor;
+
+    let mut reader = Reader::from_reader(Cursor::new(xml));
+    let mut buf = Vec::new();
+    loop {
+        match reader.read_event_into(&mut buf) {
+            Ok(Event::Start(e)) => {
+                return crate::types::ChartSpace::from_xml(&mut reader, &e, false);
+            }
+            Ok(Event::Empty(e)) => {
+                return crate::types::ChartSpace::from_xml(&mut reader, &e, true);
+            }
+            Ok(Event::Eof) => break,
+            Err(e) => return Err(ooxml_xml::ParseError::Xml(e)),
+            _ => {}
+        }
+        buf.clear();
+    }
+    Err(ooxml_xml::ParseError::UnexpectedElement(
+        "no root element found".to_string(),
+    ))
+}
 
 /// Extension trait for [`TextBody`] providing convenience methods.
 #[cfg(feature = "dml-text")]

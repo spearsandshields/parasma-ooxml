@@ -60,7 +60,7 @@ pub use error::{Error, Result};
 #[cfg(feature = "dml-diagrams")]
 pub use ext::DataModelExt;
 #[cfg(feature = "dml-charts")]
-pub use ext::{ChartExt, ChartKind, ChartSpaceExt, ChartTitleExt, PlotAreaExt};
+pub use ext::{ChartExt, ChartKind, ChartSpaceExt, ChartTitleExt, PlotAreaExt, parse_chart_space};
 #[cfg(feature = "dml-tables")]
 pub use ext::{TableCellExt, TableExt, TableRowExt};
 #[cfg(feature = "dml-text")]
