@@ -2017,6 +2017,28 @@ pub fn parse_styles(xml: &[u8]) -> Result<types::Styles, ParseError> {
     ))
 }
 
+/// Parse a `Numbering` document from XML bytes using the generated `FromXml` parser.
+///
+/// This is the recommended way to parse word/numbering.xml content.
+pub fn parse_numbering(xml: &[u8]) -> Result<types::Numbering, ParseError> {
+    let mut reader = Reader::from_reader(Cursor::new(xml));
+    let mut buf = Vec::new();
+
+    loop {
+        match reader.read_event_into(&mut buf) {
+            Ok(Event::Start(e)) => return types::Numbering::from_xml(&mut reader, &e, false),
+            Ok(Event::Empty(e)) => return types::Numbering::from_xml(&mut reader, &e, true),
+            Ok(Event::Eof) => break,
+            Err(e) => return Err(ParseError::Xml(e)),
+            _ => {}
+        }
+        buf.clear();
+    }
+    Err(ParseError::UnexpectedElement(
+        "no numbering element found".to_string(),
+    ))
+}
+
 /// Parse a header or footer from XML bytes using the generated `FromXml` parser.
 pub fn parse_hdr_ftr(xml: &[u8]) -> Result<types::HeaderFooter, ParseError> {
     let mut reader = Reader::from_reader(Cursor::new(xml));
