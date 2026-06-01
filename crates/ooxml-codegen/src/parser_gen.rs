@@ -1130,17 +1130,32 @@ impl<'a> ParserGenerator<'a> {
             writeln!(code, "            }}").unwrap();
             writeln!(code, "        }}").unwrap();
         } else {
-            // No child elements, but still need to read to end tag if not empty
+            // No modeled child elements, but still must consume to this
+            // element's end tag if not empty. Depth-track so any *unmodeled*
+            // nested content (e.g. foreign-namespaced `<c:ext>` extension
+            // children) is fully skipped; a bare `End(_) => break` would stop
+            // at the first nested close tag, under-consume, and leave this
+            // element's own `</…>` in the stream — which then cascades through
+            // every enclosing `End(_) => break` loop and silently truncates
+            // sibling lists (e.g. multi-series charts losing all but the first
+            // series because each `<c:ser>`'s `<c:extLst>` derailed parsing).
+            // Mirrors the depth-tracking used by the "truly empty struct" path.
             writeln!(code).unwrap();
             writeln!(code, "        if !is_empty {{").unwrap();
             writeln!(code, "            let mut buf = Vec::new();").unwrap();
+            writeln!(code, "            let mut depth = 1u32;").unwrap();
             writeln!(code, "            loop {{").unwrap();
             writeln!(
                 code,
                 "                match reader.read_event_into(&mut buf)? {{"
             )
             .unwrap();
-            writeln!(code, "                    Event::End(_) => break,").unwrap();
+            writeln!(code, "                    Event::Start(_) => depth += 1,").unwrap();
+            writeln!(
+                code,
+                "                    Event::End(_) => {{ depth -= 1; if depth == 0 {{ break; }} }}"
+            )
+            .unwrap();
             writeln!(code, "                    Event::Eof => break,").unwrap();
             writeln!(code, "                    _ => {{}}").unwrap();
             writeln!(code, "                }}").unwrap();

@@ -653,9 +653,16 @@ impl FromXml for Filter {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -809,9 +816,16 @@ impl FromXml for CustomFilter {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -869,9 +883,16 @@ impl FromXml for Top10Filter {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -923,9 +944,16 @@ impl FromXml for ColorFilter {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -975,9 +1003,16 @@ impl FromXml for IconFilter {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -1040,9 +1075,16 @@ impl FromXml for DynamicFilter {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -1254,9 +1296,16 @@ impl FromXml for SortCondition {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -1332,9 +1381,16 @@ impl FromXml for DateGroupItem {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -1386,9 +1442,16 @@ impl FromXml for CTXStringElement {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -1433,9 +1496,16 @@ impl FromXml for Extension {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -1484,9 +1554,16 @@ impl FromXml for ObjectAnchor {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -1834,9 +1911,16 @@ impl FromXml for CalcCell {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -2834,9 +2918,16 @@ impl FromXml for DataBinding {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -3277,9 +3368,16 @@ impl FromXml for DatabaseProperties {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -3360,9 +3458,16 @@ impl FromXml for OlapProperties {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -3721,9 +3826,16 @@ impl FromXml for Parameter {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -4233,9 +4345,16 @@ impl FromXml for TextField {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -5129,9 +5248,16 @@ impl FromXml for WorksheetSource {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -5513,9 +5639,16 @@ impl FromXml for CTPageItem {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -5693,9 +5826,16 @@ impl FromXml for CTRangeSet {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -7121,9 +7261,16 @@ impl FromXml for CTRangePr {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -7911,9 +8058,16 @@ impl FromXml for CTPCDKPI {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -8430,9 +8584,16 @@ impl FromXml for CTFieldUsage {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -9066,9 +9227,16 @@ impl FromXml for CTGroupMember {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -9273,9 +9441,16 @@ impl FromXml for CTServerFormat {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -9692,9 +9867,16 @@ impl FromXml for CTTuple {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -11441,9 +11623,16 @@ impl FromXml for PivotLocation {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -12123,9 +12312,16 @@ impl FromXml for PivotItem {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -12979,9 +13175,16 @@ impl FromXml for CTX {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -13236,9 +13439,16 @@ impl FromXml for CTField {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -14604,9 +14814,16 @@ impl FromXml for CTHierarchyUsage {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -14789,9 +15006,16 @@ impl FromXml for CTMemberProperty {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -14954,9 +15178,16 @@ impl FromXml for CTMember {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -15118,9 +15349,16 @@ impl FromXml for CTPivotDimension {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -15384,9 +15622,16 @@ impl FromXml for CTMeasureGroup {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -15437,9 +15682,16 @@ impl FromXml for CTMeasureDimensionMap {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -15505,9 +15757,16 @@ impl FromXml for CTPivotTableStyle {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -16329,9 +16588,16 @@ impl FromXml for CTIndex {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -16906,9 +17172,16 @@ impl FromXml for CTDeletedField {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -18006,9 +18279,16 @@ impl FromXml for PhoneticProperties {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -18271,9 +18551,16 @@ impl FromXml for SmlAGRevData {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -18602,9 +18889,16 @@ impl FromXml for CTSheetId {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -18754,9 +19048,16 @@ impl FromXml for Reviewed {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -18841,9 +19142,16 @@ impl FromXml for UndoInfo {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -18926,9 +19234,16 @@ impl FromXml for RevisionRowColumn {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -19005,9 +19320,16 @@ impl FromXml for RevisionMove {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -19064,9 +19386,16 @@ impl FromXml for RevisionCustomView {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -19267,9 +19596,16 @@ impl FromXml for RevisionInsertSheet {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -19729,9 +20065,16 @@ impl FromXml for RevisionAutoFormatting {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -19826,9 +20169,16 @@ impl FromXml for RevisionComment {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -20150,9 +20500,16 @@ impl FromXml for RevisionConflict {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -20208,9 +20565,16 @@ impl FromXml for RevisionQueryTableField {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -22388,9 +22752,16 @@ impl FromXml for SheetCalcProperties {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -22467,9 +22838,16 @@ impl FromXml for SheetFormat {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -22661,9 +23039,16 @@ impl FromXml for Column {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -23355,9 +23740,16 @@ impl FromXml for SheetDimension {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -23828,9 +24220,16 @@ impl FromXml for Pane {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -24084,9 +24483,16 @@ impl FromXml for Selection {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -24270,9 +24676,16 @@ impl FromXml for PageBreak {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -24333,9 +24746,16 @@ impl FromXml for OutlineProperties {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -24387,9 +24807,16 @@ impl FromXml for PageSetupProperties {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -24679,9 +25106,16 @@ impl FromXml for CTDataRef {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -24834,9 +25268,16 @@ impl FromXml for MergedCell {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -25190,9 +25631,16 @@ impl FromXml for CTCellSmartTagPr {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -25238,9 +25686,16 @@ impl FromXml for Drawing {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -25285,9 +25740,16 @@ impl FromXml for LegacyDrawing {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -25404,9 +25866,16 @@ impl FromXml for DrawingHeaderFooter {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -26806,9 +27275,16 @@ impl FromXml for Hyperlink {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -27593,9 +28069,16 @@ impl FromXml for PageMargins {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -27667,9 +28150,16 @@ impl FromXml for PrintOptions {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -27826,9 +28316,16 @@ impl FromXml for PageSetup {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -28340,9 +28837,16 @@ impl FromXml for SheetProtection {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -28518,9 +29022,16 @@ impl FromXml for ProtectedRange {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -28719,9 +29230,16 @@ impl FromXml for InputCells {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -28852,9 +29370,16 @@ impl FromXml for CellWatch {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -29586,9 +30111,16 @@ impl FromXml for ChartsheetProtection {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -29687,9 +30219,16 @@ impl FromXml for ChartsheetPageSetup {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -30076,9 +30615,16 @@ impl FromXml for CTCustomProperty {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -30641,9 +31187,16 @@ impl FromXml for WebPublishItem {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -31210,9 +31763,16 @@ impl FromXml for IgnoredError {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -31372,9 +31932,16 @@ impl FromXml for TablePart {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -31824,9 +32391,16 @@ impl FromXml for MetadataType {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -32090,9 +32664,16 @@ impl FromXml for MetadataRecord {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -32885,9 +33466,16 @@ impl FromXml for CTMdxMemeberProp {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -32941,9 +33529,16 @@ impl FromXml for CTMdxKPI {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -32994,9 +33589,16 @@ impl FromXml for CTMetadataStringIndex {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -33966,9 +34568,16 @@ impl FromXml for CellAlignment {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -34546,9 +35155,16 @@ impl FromXml for CellProtection {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -35063,9 +35679,16 @@ impl FromXml for Color {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -35468,9 +36091,16 @@ impl FromXml for NumberFormat {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -36787,9 +37417,16 @@ impl FromXml for RgbColor {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -37079,9 +37716,16 @@ impl FromXml for TableStyleElement {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -37128,9 +37772,16 @@ impl FromXml for BooleanProperty {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -37175,9 +37826,16 @@ impl FromXml for FontSize {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -37222,9 +37880,16 @@ impl FromXml for IntProperty {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -37269,9 +37934,16 @@ impl FromXml for FontName {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -37316,9 +37988,16 @@ impl FromXml for VerticalAlignFontProperty {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -37363,9 +38042,16 @@ impl FromXml for FontSchemeProperty {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -37410,9 +38096,16 @@ impl FromXml for UnderlineProperty {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -37844,9 +38537,16 @@ impl FromXml for FontFamily {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -37915,9 +38615,16 @@ impl FromXml for SmlAGAutoFormat {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -38334,9 +39041,16 @@ impl FromXml for CTExternalSheetName {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -38473,9 +39187,16 @@ impl FromXml for CTExternalDefinedName {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -39671,9 +40392,16 @@ impl FromXml for OleItem {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -40110,9 +40838,16 @@ impl FromXml for TableStyleInfo {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -41159,9 +41894,16 @@ impl FromXml for CTVolTopicRef {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -41713,9 +42455,16 @@ impl FromXml for FileVersion {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -42458,9 +43207,16 @@ impl FromXml for Sheet {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -42578,9 +43334,16 @@ impl FromXml for WorkbookProperties {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -42646,9 +43409,16 @@ impl FromXml for CTSmartTagPr {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -42784,9 +43554,16 @@ impl FromXml for CTSmartTagType {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -42845,9 +43622,16 @@ impl FromXml for FileRecoveryProperties {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -42969,9 +43753,16 @@ impl FromXml for CalculationProperties {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -43411,9 +44202,16 @@ impl FromXml for ExternalReference {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -43458,9 +44256,16 @@ impl FromXml for SheetBackgroundPicture {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -43591,9 +44396,16 @@ impl FromXml for CTPivotCache {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -43664,9 +44476,16 @@ impl FromXml for FileSharing {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -43717,9 +44536,16 @@ impl FromXml for CTOleSize {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -43821,9 +44647,16 @@ impl FromXml for WorkbookProtection {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -43914,9 +44747,16 @@ impl FromXml for WebPublishing {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -44075,9 +44915,16 @@ impl FromXml for CTFunctionGroup {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
@@ -44249,9 +45096,16 @@ impl FromXml for CTWebPublishObject {
 
         if !is_empty {
             let mut buf = Vec::new();
+            let mut depth = 1u32;
             loop {
                 match reader.read_event_into(&mut buf)? {
-                    Event::End(_) => break,
+                    Event::Start(_) => depth += 1,
+                    Event::End(_) => {
+                        depth -= 1;
+                        if depth == 0 {
+                            break;
+                        }
+                    }
                     Event::Eof => break,
                     _ => {}
                 }
