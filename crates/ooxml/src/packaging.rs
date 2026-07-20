@@ -410,6 +410,39 @@ pub mod content_type {
         "application/vnd.openxmlformats-officedocument.extended-properties+xml";
 }
 
+/// Resolve a relationship target to a package zip entry name.
+///
+/// OPC (ECMA-376 Part 2, §8.3) permits two internal target forms:
+///
+/// - relative to the source part (`document.xml`, `../media/img.png`)
+/// - absolute part-name form (`/word/document.xml`)
+///
+/// Zip entry names carry no leading slash, so the absolute form is stripped
+/// and relative forms are resolved against the source part's directory with
+/// `.` and `..` segments normalized. `source` is the source part's own entry
+/// name; pass `""` for the package root (`_rels/.rels` targets).
+pub fn resolve_part_path(source: &str, target: &str) -> String {
+    let joined = if let Some(abs) = target.strip_prefix('/') {
+        abs.to_string()
+    } else {
+        match source.rfind('/') {
+            Some(i) => format!("{}/{}", &source[..i], target),
+            None => target.to_string(),
+        }
+    };
+    let mut parts: Vec<&str> = Vec::new();
+    for seg in joined.split('/') {
+        match seg {
+            ".." => {
+                parts.pop();
+            }
+            "." | "" => {}
+            s => parts.push(s),
+        }
+    }
+    parts.join("/")
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -506,6 +539,46 @@ mod tests {
         assert_eq!(
             parsed.get("word/document.xml"),
             Some(content_type::WORDPROCESSING_DOCUMENT)
+        );
+    }
+
+    #[test]
+    fn absolute_form_strips_the_slash() {
+        assert_eq!(
+            resolve_part_path("", "/word/document.xml"),
+            "word/document.xml"
+        );
+        assert_eq!(
+            resolve_part_path("word/document.xml", "/word/media/i.png"),
+            "word/media/i.png"
+        );
+    }
+
+    #[test]
+    fn relative_resolves_against_source_dir() {
+        assert_eq!(
+            resolve_part_path("", "word/document.xml"),
+            "word/document.xml"
+        );
+        assert_eq!(
+            resolve_part_path("word/document.xml", "media/i.png"),
+            "word/media/i.png"
+        );
+        assert_eq!(
+            resolve_part_path("word/document.xml", "../customXml/item1.xml"),
+            "customXml/item1.xml"
+        );
+    }
+
+    #[test]
+    fn dot_and_empty_segments_normalize() {
+        assert_eq!(
+            resolve_part_path("word/document.xml", "./media//i.png"),
+            "word/media/i.png"
+        );
+        assert_eq!(
+            resolve_part_path("", "/word/../word/document.xml"),
+            "word/document.xml"
         );
     }
 }

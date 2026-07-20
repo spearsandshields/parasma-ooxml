@@ -195,7 +195,7 @@ impl<R: Read + Seek> Presentation<R> {
         let pres_rel = root_rels
             .get_by_type(REL_OFFICE_DOCUMENT)
             .ok_or_else(|| Error::Invalid("Missing presentation relationship".into()))?;
-        let presentation_path = pres_rel.target.clone();
+        let presentation_path = resolve_path("", &pres_rel.target);
 
         // Load presentation relationships
         let pres_rels = package
@@ -1013,36 +1013,9 @@ fn parse_notes_slide(xml: &[u8]) -> Option<String> {
 // Utilities
 // ============================================================================
 
-/// Resolve a relative path against a base path, normalizing `..` segments.
+/// Resolve a relationship target against a source part path to a zip entry name.
 fn resolve_path(base: &str, target: &str) -> String {
-    if target.starts_with('/') {
-        // Absolute target — return as-is (preserve leading slash per OPC spec).
-        return target.to_string();
-    }
-
-    // Get the directory of the base path
-    let base_dir = if let Some(idx) = base.rfind('/') {
-        &base[..idx + 1]
-    } else {
-        ""
-    };
-
-    normalize_path(&format!("{}{}", base_dir, target))
-}
-
-/// Normalize a path by resolving `..` and `.` segments.
-fn normalize_path(path: &str) -> String {
-    let mut parts: Vec<&str> = Vec::new();
-    for segment in path.split('/') {
-        match segment {
-            ".." => {
-                parts.pop();
-            }
-            "." | "" => {}
-            _ => parts.push(segment),
-        }
-    }
-    parts.join("/")
+    ooxml_opc::resolve_part_path(base, target)
 }
 
 /// Determine content type from file path extension.
@@ -1593,9 +1566,12 @@ mod tests {
             resolve_path("ppt/presentation.xml", "slides/slide1.xml"),
             "ppt/slides/slide1.xml"
         );
+        // ABSOLUTE part-name form resolves to the zip-entry name (no leading
+        // slash) — the old behavior returned it verbatim, a name that can
+        // never match a zip entry (fixed workspace-wide in resolve_part_path).
         assert_eq!(
             resolve_path("ppt/presentation.xml", "/ppt/slides/slide1.xml"),
-            "/ppt/slides/slide1.xml"
+            "ppt/slides/slide1.xml"
         );
         // Relative path with parent navigation (../ used in master → layout refs)
         assert_eq!(

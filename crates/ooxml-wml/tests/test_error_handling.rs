@@ -105,3 +105,55 @@ fn test_malformed_xml_in_document() {
         "should fail when document.xml has malformed XML"
     );
 }
+
+/// OPC allows a relationship Target in ABSOLUTE part-name form ("/word/document.xml");
+/// zip entry names carry no leading slash, so the target must be resolved, not used
+/// verbatim. (Corpus: 13 LibreOffice tdf*.docx regression files write this form —
+/// Word opens them; we said "missing part: /word/document.xml".)
+#[test]
+fn test_absolute_officedocument_target() {
+    let mut buf = Cursor::new(Vec::new());
+    {
+        use std::io::Write;
+        let mut writer = zip::ZipWriter::new(&mut buf);
+        let options = zip::write::SimpleFileOptions::default();
+
+        writer.start_file("[Content_Types].xml", options).unwrap();
+        writer
+            .write_all(
+                br#"<?xml version="1.0" encoding="UTF-8"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+  <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+  <Default Extension="xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
+</Types>"#,
+            )
+            .unwrap();
+
+        writer.start_file("_rels/.rels", options).unwrap();
+        writer
+            .write_all(
+                br#"<?xml version="1.0" encoding="UTF-8"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="/word/document.xml"/>
+</Relationships>"#,
+            )
+            .unwrap();
+
+        writer.start_file("word/document.xml", options).unwrap();
+        writer
+            .write_all(
+                br#"<?xml version="1.0" encoding="UTF-8"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body><w:p/></w:body></w:document>"#,
+            )
+            .unwrap();
+
+        writer.finish().unwrap();
+    }
+    let bytes = buf.into_inner();
+    let result = Doc::from_reader(Cursor::new(bytes));
+    assert!(
+        result.is_ok(),
+        "an absolute officeDocument Target must resolve: {:?}",
+        result.err()
+    );
+}

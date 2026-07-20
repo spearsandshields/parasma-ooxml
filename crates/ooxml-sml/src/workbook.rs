@@ -83,7 +83,7 @@ impl<R: Read + Seek> Workbook<R> {
         let workbook_rel = root_rels
             .get_by_type(REL_OFFICE_DOCUMENT)
             .ok_or_else(|| Error::Invalid("Missing workbook relationship".into()))?;
-        let workbook_path = workbook_rel.target.clone();
+        let workbook_path = resolve_path("", &workbook_rel.target);
 
         // Load workbook relationships
         let workbook_rels = package
@@ -1359,41 +1359,9 @@ fn parse_chart(xml: &[u8]) -> Result<Chart> {
 }
 
 // ============================================================================
-/// Resolve a relative path against a base path.
+/// Resolve a relationship target against a source part path to a zip entry name.
 fn resolve_path(base: &str, target: &str) -> String {
-    let has_leading_slash = base.starts_with('/');
-
-    if target.starts_with('/') {
-        return target.to_string();
-    }
-
-    // Get the directory of the base path
-    let base_dir = if let Some(idx) = base.rfind('/') {
-        &base[..idx]
-    } else {
-        ""
-    };
-
-    // Build path segments, handling ".." for parent directory
-    let mut parts: Vec<&str> = base_dir.split('/').filter(|s| !s.is_empty()).collect();
-    for segment in target.split('/') {
-        match segment {
-            ".." => {
-                parts.pop();
-            }
-            "." | "" => {}
-            _ => {
-                parts.push(segment);
-            }
-        }
-    }
-
-    let result = parts.join("/");
-    if has_leading_slash {
-        format!("/{}", result)
-    } else {
-        result
-    }
+    ooxml_opc::resolve_part_path(base, target)
 }
 
 #[cfg(test)]
@@ -1402,22 +1370,32 @@ mod tests {
 
     #[test]
     fn test_resolve_path() {
+        // Canonical convention (resolve_part_path): output is always the ZIP
+        // ENTRY name — no leading slash. The old local copy re-prefixed the
+        // base's slash and returned absolute targets verbatim; both forms can
+        // never match a zip entry, so they only ever fed failing reads.
+        assert_eq!(
+            resolve_path("xl/workbook.xml", "worksheets/sheet1.xml"),
+            "xl/worksheets/sheet1.xml"
+        );
+        // A slash-prefixed base still normalizes to the entry-name output.
         assert_eq!(
             resolve_path("/xl/workbook.xml", "worksheets/sheet1.xml"),
-            "/xl/worksheets/sheet1.xml"
+            "xl/worksheets/sheet1.xml"
         );
+        // ABSOLUTE part-name targets resolve to the entry name.
         assert_eq!(
-            resolve_path("/xl/workbook.xml", "/xl/sharedStrings.xml"),
-            "/xl/sharedStrings.xml"
+            resolve_path("xl/workbook.xml", "/xl/sharedStrings.xml"),
+            "xl/sharedStrings.xml"
         );
         // Parent directory handling
         assert_eq!(
-            resolve_path("/xl/chartsheets/sheet1.xml", "../drawings/drawing1.xml"),
-            "/xl/drawings/drawing1.xml"
+            resolve_path("xl/chartsheets/sheet1.xml", "../drawings/drawing1.xml"),
+            "xl/drawings/drawing1.xml"
         );
         assert_eq!(
-            resolve_path("/xl/worksheets/sheet1.xml", "../comments1.xml"),
-            "/xl/comments1.xml"
+            resolve_path("xl/worksheets/sheet1.xml", "../comments1.xml"),
+            "xl/comments1.xml"
         );
     }
 

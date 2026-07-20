@@ -37,5 +37,5 @@ pub mod packaging;
 pub mod relationships;
 
 pub use error::{Error, Result};
-pub use packaging::{ContentTypes, Package, PackageWriter, content_type};
+pub use packaging::{ContentTypes, Package, PackageWriter, content_type, resolve_part_path};
 pub use relationships::{Relationship, Relationships, TargetMode, rel_type, rels_path_for};

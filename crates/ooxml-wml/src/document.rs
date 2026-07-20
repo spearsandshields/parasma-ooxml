@@ -64,7 +64,9 @@ impl<R: Read + Seek> Document<R> {
             .get_by_type(rel_type::OFFICE_DOCUMENT)
             .ok_or_else(|| Error::MissingPart("main document relationship".into()))?;
 
-        let doc_path = doc_rel.target.clone();
+        // OPC targets may be ABSOLUTE part names ("/word/document.xml"); zip
+        // entry names carry no leading slash — resolve, never use verbatim.
+        let doc_path = resolve_path("", &doc_rel.target);
 
         // Parse the document XML using the generated parser
         let doc_xml = package.read_part(&doc_path)?;
@@ -84,7 +86,7 @@ impl<R: Read + Seek> Document<R> {
         // .docx files from Word typically reference styles).
         let (gen_styles, styles_path) = if let Some(styles_rel) = rels.get_by_type(rel_type::STYLES)
         {
-            let path = styles_rel.target.clone();
+            let path = resolve_path("", &styles_rel.target);
             let styles_xml = package.read_part(&path)?;
             (ext::parse_styles(&styles_xml)?, Some(path))
         } else if let Some(styles_rel) = doc_rels.get_by_type(rel_type::STYLES) {
@@ -97,7 +99,7 @@ impl<R: Read + Seek> Document<R> {
 
         // Load core properties if available
         let core_properties = if let Some(core_rel) = rels.get_by_type(rel_type::CORE_PROPERTIES) {
-            let core_xml = package.read_part(&core_rel.target)?;
+            let core_xml = package.read_part(&resolve_path("", &core_rel.target))?;
             Some(parse_core_properties(&core_xml)?)
         } else {
             None
@@ -106,7 +108,7 @@ impl<R: Read + Seek> Document<R> {
         // Load app properties if available
         let app_properties = if let Some(app_rel) = rels.get_by_type(rel_type::EXTENDED_PROPERTIES)
         {
-            let app_xml = package.read_part(&app_rel.target)?;
+            let app_xml = package.read_part(&resolve_path("", &app_rel.target))?;
             Some(parse_app_properties(&app_xml)?)
         } else {
             None
@@ -410,19 +412,9 @@ pub(crate) fn serialize_xml(value: &impl ToXml, tag: &str) -> Result<Vec<u8>> {
 // Path utilities
 // =============================================================================
 
-/// Resolve a relative path against a base path.
+/// Resolve a relationship target against a source part path to a zip entry name.
 pub(crate) fn resolve_path(base: &str, relative: &str) -> String {
-    // If the target is absolute (starts with /), use it directly (without the /)
-    if let Some(stripped) = relative.strip_prefix('/') {
-        return stripped.to_string();
-    }
-
-    // Otherwise, resolve relative to the base directory
-    if let Some(slash_pos) = base.rfind('/') {
-        format!("{}/{}", &base[..slash_pos], relative)
-    } else {
-        relative.to_string()
-    }
+    ooxml_opc::resolve_part_path(base, relative)
 }
 
 /// Determine MIME content type from file extension.
@@ -1137,9 +1129,11 @@ mod tests {
             resolve_path("word/document.xml", "media/image1.png"),
             "word/media/image1.png"
         );
+        // ".." segments NORMALIZE (the old local copy left them verbatim —
+        // "word/../media/image1.png" can never match a zip entry).
         assert_eq!(
             resolve_path("word/document.xml", "../media/image1.png"),
-            "word/../media/image1.png"
+            "media/image1.png"
         );
 
         // Absolute path
