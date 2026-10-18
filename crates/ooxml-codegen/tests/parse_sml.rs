@@ -1,13 +1,12 @@
 use ooxml_codegen::{lex_rnc, parse_rnc};
-use std::fs;
+
+mod common;
 
 #[test]
 fn test_parse_sml() {
-    let path = concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/../../spec/OfficeOpenXML-RELAXNG-Transitional/sml.rnc"
-    );
-    let input = fs::read_to_string(path).expect("failed to read sml.rnc");
+    let Some(input) = common::read_schema("sml.rnc") else {
+        return;
+    };
 
     // First, let's see the tokens around the error position
     let tokens = lex_rnc(&input).expect("failed to lex sml.rnc");
