@@ -1,21 +1,25 @@
 # ooxml
 
+> **This repository is a fork.** It is the [Parasma](https://github.com/spearsandshields/parasma)
+> document viewer's fork of [pterror/ooxml](https://github.com/pterror/ooxml) and is not
+> affiliated with or endorsed by the upstream project. The differences are listed in
+> [CHANGES-FROM-UPSTREAM.md](CHANGES-FROM-UPSTREAM.md). The crates here are not published to
+> crates.io; the `ooxml-*` crates on crates.io are upstream's.
+
 Rust library for reading and writing Office Open XML formats: DOCX, XLSX, and PPTX.
 
-[![Crates.io](https://img.shields.io/crates/v/ooxml-wml.svg)](https://crates.io/crates/ooxml-wml)
-[![Docs.rs](https://docs.rs/ooxml-wml/badge.svg)](https://docs.rs/ooxml-wml)
 [![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](LICENSE-MIT)
 
 ## Crates
 
-| Crate | Description | Docs |
-|-------|-------------|------|
-| [`ooxml-wml`](crates/ooxml-wml) | WordprocessingML — read/write `.docx` | [![docs.rs](https://img.shields.io/docsrs/ooxml-wml)](https://docs.rs/ooxml-wml) |
-| [`ooxml-sml`](crates/ooxml-sml) | SpreadsheetML — read/write `.xlsx` | [![docs.rs](https://img.shields.io/docsrs/ooxml-sml)](https://docs.rs/ooxml-sml) |
-| [`ooxml-pml`](crates/ooxml-pml) | PresentationML — read/write `.pptx` | [![docs.rs](https://img.shields.io/docsrs/ooxml-pml)](https://docs.rs/ooxml-pml) |
-| [`ooxml-dml`](crates/ooxml-dml) | DrawingML — shared graphics layer | [![docs.rs](https://img.shields.io/docsrs/ooxml-dml)](https://docs.rs/ooxml-dml) |
-| [`ooxml-omml`](crates/ooxml-omml) | Office Math Markup Language | [![docs.rs](https://img.shields.io/docsrs/ooxml-omml)](https://docs.rs/ooxml-omml) |
-| [`ooxml-opc`](crates/ooxml) | OPC packaging core (ZIP, relationships, content types) | [![docs.rs](https://img.shields.io/docsrs/ooxml-opc)](https://docs.rs/ooxml-opc) |
+| Crate | Description |
+|-------|-------------|
+| [`ooxml-wml`](crates/ooxml-wml) | WordprocessingML — read/write `.docx` |
+| [`ooxml-sml`](crates/ooxml-sml) | SpreadsheetML — read/write `.xlsx` |
+| [`ooxml-pml`](crates/ooxml-pml) | PresentationML — read/write `.pptx` |
+| [`ooxml-dml`](crates/ooxml-dml) | DrawingML — shared graphics layer |
+| [`ooxml-omml`](crates/ooxml-omml) | Office Math Markup Language |
+| [`ooxml-opc`](crates/ooxml) | OPC packaging core (ZIP, relationships, content types) |
 
 ## Quick Start
 
