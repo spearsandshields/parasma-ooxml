@@ -157,3 +157,50 @@ fn test_absolute_officedocument_target() {
         result.err()
     );
 }
+
+/// `w:body` is optional in the schema. A document without one must open and
+/// read as empty, not panic in `body()`.
+#[test]
+fn test_document_without_body() {
+    let mut buf = Cursor::new(Vec::new());
+    {
+        use std::io::Write;
+        let mut writer = zip::ZipWriter::new(&mut buf);
+        let options = zip::write::SimpleFileOptions::default();
+
+        writer.start_file("[Content_Types].xml", options).unwrap();
+        writer
+            .write_all(
+                br#"<?xml version="1.0" encoding="UTF-8"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+  <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+  <Default Extension="xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
+</Types>"#,
+            )
+            .unwrap();
+
+        writer.start_file("_rels/.rels", options).unwrap();
+        writer
+            .write_all(
+                br#"<?xml version="1.0" encoding="UTF-8"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
+</Relationships>"#,
+            )
+            .unwrap();
+
+        writer.start_file("word/document.xml", options).unwrap();
+        writer
+            .write_all(
+                br#"<?xml version="1.0" encoding="UTF-8"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"/>"#,
+            )
+            .unwrap();
+
+        writer.finish().unwrap();
+    }
+    let mut doc = Doc::from_reader(Cursor::new(buf.into_inner())).expect("must open");
+    assert!(doc.body().block_content.is_empty());
+    assert!(doc.body_mut().block_content.is_empty());
+    assert!(doc.gen_doc().body.is_some(), "body_mut materialises a body");
+}

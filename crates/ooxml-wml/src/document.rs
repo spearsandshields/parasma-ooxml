@@ -130,19 +130,21 @@ impl<R: Read + Seek> Document<R> {
     ///
     /// Returns the generated `Body` type. Use extension traits from `ext` to
     /// access paragraphs, runs, and text content.
+    ///
+    /// The schema makes `w:body` optional. A document without one reads as an
+    /// empty body rather than panicking.
     pub fn body(&self) -> &types::Body {
-        self.gen_doc
-            .body
-            .as_deref()
-            .expect("document has no body element")
+        static EMPTY: std::sync::LazyLock<types::Body> =
+            std::sync::LazyLock::new(types::Body::default);
+        self.gen_doc.body.as_deref().unwrap_or(&EMPTY)
     }
 
     /// Get a mutable reference to the document body.
+    ///
+    /// Creates an empty body if the document has none, so a later save
+    /// writes one.
     pub fn body_mut(&mut self) -> &mut types::Body {
-        self.gen_doc
-            .body
-            .as_deref_mut()
-            .expect("document has no body element")
+        self.gen_doc.body.get_or_insert_with(Default::default)
     }
 
     /// Get the generated document.
