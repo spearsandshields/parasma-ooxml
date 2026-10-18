@@ -280,18 +280,16 @@ fn parse_xml_to_tree(xml: &[u8]) -> Result<Vec<XmlNode>, String> {
                     children.push(elem);
                 }
             }
-            Ok(Event::End(_)) => {
-                if stack.len() > 1 {
-                    let (builder, children) = stack.pop().unwrap();
-                    if let Some(ElementBuilder { name, attributes }) = builder {
-                        let elem = XmlNode::Element {
-                            name,
-                            attributes,
-                            children,
-                        };
-                        if let Some((_, parent_children)) = stack.last_mut() {
-                            parent_children.push(elem);
-                        }
+            Ok(Event::End(_)) if stack.len() > 1 => {
+                let (builder, children) = stack.pop().unwrap();
+                if let Some(ElementBuilder { name, attributes }) = builder {
+                    let elem = XmlNode::Element {
+                        name,
+                        attributes,
+                        children,
+                    };
+                    if let Some((_, parent_children)) = stack.last_mut() {
+                        parent_children.push(elem);
                     }
                 }
             }

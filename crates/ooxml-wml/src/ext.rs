@@ -656,14 +656,14 @@ impl RunExt for types::Run {
                 }
                 types::RunContent::Tab(_) => out.push('\t'),
                 types::RunContent::Cr(_) => out.push('\n'),
-                types::RunContent::Br(br) => {
-                    // Page/column breaks aren't text; only text-wrapping breaks produce newlines
+                // Page/column breaks aren't text; only text-wrapping breaks produce newlines
+                types::RunContent::Br(br)
                     if !matches!(
                         br.r#type,
                         Some(types::STBrType::Page) | Some(types::STBrType::Column)
-                    ) {
-                        out.push('\n');
-                    }
+                    ) =>
+                {
+                    out.push('\n');
                 }
                 _ => {}
             }
@@ -2348,13 +2348,13 @@ fn text_from_run_track_change(tc: &types::CTRunTrackChange) -> String {
                     }
                     types::RunContent::Tab(_) => out.push('\t'),
                     types::RunContent::Cr(_) => out.push('\n'),
-                    types::RunContent::Br(br) => {
+                    types::RunContent::Br(br)
                         if !matches!(
                             br.r#type,
                             Some(types::STBrType::Page) | Some(types::STBrType::Column)
-                        ) {
-                            out.push('\n');
-                        }
+                        ) =>
+                    {
+                        out.push('\n');
                     }
                     // Also capture del-text for deletion change content
                     types::RunContent::DelText(t) => {

@@ -45,47 +45,45 @@ impl Relationships {
 
         loop {
             match xml.read_event_into(&mut buf) {
-                Ok(Event::Empty(e)) | Ok(Event::Start(e)) => {
-                    if e.name().as_ref() == b"Relationship" {
-                        let mut id = None;
-                        let mut rel_type = None;
-                        let mut target = None;
-                        let mut target_mode = TargetMode::Internal;
+                Ok(Event::Empty(e)) | Ok(Event::Start(e))
+                    if e.name().as_ref() == b"Relationship" =>
+                {
+                    let mut id = None;
+                    let mut rel_type = None;
+                    let mut target = None;
+                    let mut target_mode = TargetMode::Internal;
 
-                        for attr in e.attributes().filter_map(|a| a.ok()) {
-                            match attr.key.as_ref() {
-                                b"Id" => {
-                                    id = Some(String::from_utf8_lossy(&attr.value).into_owned());
-                                }
-                                b"Type" => {
-                                    rel_type =
-                                        Some(String::from_utf8_lossy(&attr.value).into_owned());
-                                }
-                                b"Target" => {
-                                    target =
-                                        Some(String::from_utf8_lossy(&attr.value).into_owned());
-                                }
-                                b"TargetMode" => {
-                                    let mode = String::from_utf8_lossy(&attr.value);
-                                    if mode == "External" {
-                                        target_mode = TargetMode::External;
-                                    }
-                                }
-                                _ => {}
+                    for attr in e.attributes().filter_map(|a| a.ok()) {
+                        match attr.key.as_ref() {
+                            b"Id" => {
+                                id = Some(String::from_utf8_lossy(&attr.value).into_owned());
                             }
+                            b"Type" => {
+                                rel_type = Some(String::from_utf8_lossy(&attr.value).into_owned());
+                            }
+                            b"Target" => {
+                                target = Some(String::from_utf8_lossy(&attr.value).into_owned());
+                            }
+                            b"TargetMode" => {
+                                let mode = String::from_utf8_lossy(&attr.value);
+                                if mode == "External" {
+                                    target_mode = TargetMode::External;
+                                }
+                            }
+                            _ => {}
                         }
+                    }
 
-                        if let (Some(id), Some(rel_type), Some(target)) = (id, rel_type, target) {
-                            relationships.relationships.insert(
-                                id.clone(),
-                                Relationship {
-                                    id,
-                                    relationship_type: rel_type,
-                                    target,
-                                    target_mode,
-                                },
-                            );
-                        }
+                    if let (Some(id), Some(rel_type), Some(target)) = (id, rel_type, target) {
+                        relationships.relationships.insert(
+                            id.clone(),
+                            Relationship {
+                                id,
+                                relationship_type: rel_type,
+                                target,
+                                target_mode,
+                            },
+                        );
                     }
                 }
                 Ok(Event::Eof) => break,

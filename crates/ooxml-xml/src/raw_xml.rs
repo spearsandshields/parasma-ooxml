@@ -160,10 +160,8 @@ impl RawXmlElement {
                     let text = String::from_utf8_lossy(&e).to_string();
                     element.children.push(RawXmlNode::Comment(text));
                 }
-                Ok(Event::End(e)) => {
-                    if e.name().as_ref() == target_name {
-                        break;
-                    }
+                Ok(Event::End(e)) if e.name().as_ref() == target_name => {
+                    break;
                 }
                 Ok(Event::Eof) => {
                     return Err(Error::Invalid(format!(

@@ -128,12 +128,10 @@ impl<R: BufRead> Iterator for RowIterator<R> {
                         }
                     }
                 }
-                Ok(Event::End(e)) => {
-                    if e.name().as_ref() == b"sheetData" {
-                        self.in_sheet_data = false;
-                        self.finished = true;
-                        return None;
-                    }
+                Ok(Event::End(e)) if e.name().as_ref() == b"sheetData" => {
+                    self.in_sheet_data = false;
+                    self.finished = true;
+                    return None;
                 }
                 Ok(Event::Eof) => {
                     self.finished = true;
@@ -297,15 +295,11 @@ fn parse_lazy_row<R: BufRead>(
                     skip_element(reader)?;
                 }
             }
-            Event::Empty(e) => {
-                if e.name().as_ref() == b"c" {
-                    row.cells.push(parse_lazy_cell_from_empty(&e)?);
-                }
+            Event::Empty(e) if e.name().as_ref() == b"c" => {
+                row.cells.push(parse_lazy_cell_from_empty(&e)?);
             }
-            Event::End(e) => {
-                if e.name().as_ref() == b"row" {
-                    break;
-                }
+            Event::End(e) if e.name().as_ref() == b"row" => {
+                break;
             }
             Event::Eof => break,
             _ => {}
@@ -380,10 +374,8 @@ fn parse_lazy_cell<R: BufRead>(
             Event::Empty(_) => {
                 // Empty v or f element - no content
             }
-            Event::End(e) => {
-                if e.name().as_ref() == b"c" {
-                    break;
-                }
+            Event::End(e) if e.name().as_ref() == b"c" => {
+                break;
             }
             Event::Eof => break,
             _ => {}

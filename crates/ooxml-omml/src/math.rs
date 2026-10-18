@@ -552,10 +552,8 @@ fn parse_math_run<R: BufRead>(reader: &mut Reader<R>) -> Result<MathRun> {
                     in_text = true;
                 }
             }
-            Ok(Event::Text(e)) => {
-                if in_text {
-                    run.text.push_str(&e.decode().unwrap_or_default());
-                }
+            Ok(Event::Text(e)) if in_text => {
+                run.text.push_str(&e.decode().unwrap_or_default());
             }
             Ok(Event::End(e)) => {
                 let name = e.name();
