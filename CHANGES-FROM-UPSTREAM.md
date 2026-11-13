@@ -31,10 +31,14 @@ Base: upstream `master` at `28915f1` (2026-10-18).
 - The `zip` dependency is built with `default-features = false, features = ["deflate"]`
   (`build(opc)`). OPC permits only DEFLATE or STORED entries, and the dropped codecs include
   `zstd-sys`, which does not cross-compile to `wasm32-unknown-unknown`.
+- `zip` is at 9.x (`fix(deps)`), which clears the advisories against 7.x. zip 9 reports an
+  undecodable entry name as an error: `has_part` treats such an entry as absent and `parts()`
+  skips it.
 - The 1×1 fixture PNG is solid red rather than white so a rendered image is distinguishable
   from a blank page (`fixtures(wml)`).
 - Clippy lints new in Rust 1.95 are cleared so `cargo clippy --all-targets --all-features
-  -- -D warnings` passes on the current stable toolchain (`chore`).
+  -- -D warnings` passes. CI is pinned to Rust 1.95.0, so lints added in later releases do not
+  fail it (`chore`, `ci`).
 - The four codegen tests that read the ECMA-376 RELAX NG schemas skip, with a note, when the
   gitignored `spec/` download is absent instead of panicking on every CI runner (`test(codegen)`).
 
