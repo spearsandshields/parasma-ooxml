@@ -53,12 +53,18 @@ impl<R: Read + Seek> Package<R> {
 
     /// Check if a part exists in the package.
     pub fn has_part(&self, path: &str) -> bool {
-        self.archive.file_names().any(|name| name == path)
+        self.archive
+            .file_names()
+            .any(|name| name.is_ok_and(|name| name == path))
     }
 
     /// List all parts in the package.
     pub fn parts(&self) -> impl Iterator<Item = &str> {
-        self.archive.file_names()
+        // OPC stores part names as UTF-8, so a name that is not valid
+        // UTF-8 is not a part.
+        self.archive
+            .file_names_raw()
+            .filter_map(|name| std::str::from_utf8(name).ok())
     }
 
     /// Read a part's contents as bytes.

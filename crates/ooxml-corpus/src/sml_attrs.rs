@@ -128,7 +128,7 @@ pub fn analyze_xlsx_file(path: &Path) -> Result<SmlAttrStats, String> {
     let names: Vec<String> = (0..archive.len())
         .filter_map(|i| {
             archive.by_index(i).ok().and_then(|f| {
-                let name = f.name().to_string();
+                let name = f.name().ok()?.into_owned();
                 if name.contains("sheet") && name.ends_with(".xml") && !name.contains("rels") {
                     Some(name)
                 } else {

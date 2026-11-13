@@ -6319,7 +6319,7 @@ mod tests {
         buffer.set_position(0);
         let mut zip = zip::ZipArchive::new(buffer).unwrap();
         let names: HashSet<String> = (0..zip.len())
-            .map(|i| zip.by_index(i).unwrap().name().to_string())
+            .map(|i| zip.by_index(i).unwrap().name().unwrap().into_owned())
             .collect();
 
         // Drawing and chart parts must exist.
@@ -6389,7 +6389,7 @@ mod tests {
         buffer.set_position(0);
         let mut zip = zip::ZipArchive::new(buffer).unwrap();
         let names: HashSet<String> = (0..zip.len())
-            .map(|i| zip.by_index(i).unwrap().name().to_string())
+            .map(|i| zip.by_index(i).unwrap().name().unwrap().into_owned())
             .collect();
 
         // Should have one drawing (for the sheet) but two chart files.
@@ -6421,7 +6421,7 @@ mod tests {
         buffer.set_position(0);
         let mut zip = zip::ZipArchive::new(buffer).unwrap();
         let names: HashSet<String> = (0..zip.len())
-            .map(|i| zip.by_index(i).unwrap().name().to_string())
+            .map(|i| zip.by_index(i).unwrap().name().unwrap().into_owned())
             .collect();
 
         assert!(names.contains("xl/drawings/drawing1.xml"));
@@ -6460,7 +6460,7 @@ mod tests {
         buffer.set_position(0);
         let mut zip = zip::ZipArchive::new(buffer).unwrap();
         let names: HashSet<String> = (0..zip.len())
-            .map(|i| zip.by_index(i).unwrap().name().to_string())
+            .map(|i| zip.by_index(i).unwrap().name().unwrap().into_owned())
             .collect();
 
         assert!(
@@ -6593,7 +6593,7 @@ mod tests {
         buffer.set_position(0);
         let mut zip = zip::ZipArchive::new(buffer).unwrap();
         let names: HashSet<String> = (0..zip.len())
-            .map(|i| zip.by_index(i).unwrap().name().to_string())
+            .map(|i| zip.by_index(i).unwrap().name().unwrap().into_owned())
             .collect();
 
         assert!(names.contains("xl/pivotTables/pivotTable1.xml"));

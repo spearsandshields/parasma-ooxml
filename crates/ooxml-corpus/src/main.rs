@@ -381,7 +381,12 @@ fn analyze_zip(zip_path: &Path, limit: Option<usize>, config: AnalysisConfig) ->
             archive
                 .by_index(i)
                 .ok()
-                .is_some_and(|f| f.name().ends_with(".docx") || f.name().ends_with(".DOCX"))
+                .and_then(|f| {
+                    f.name()
+                        .ok()
+                        .map(|n| n.ends_with(".docx") || n.ends_with(".DOCX"))
+                })
+                .unwrap_or(false)
         })
         .collect();
 
@@ -553,7 +558,15 @@ fn analyze_docx_from_zip<R: Read + Seek>(
         }
     };
 
-    let name = file.name().to_string();
+    let name = match file.name() {
+        Ok(name) => name.into_owned(),
+        Err(e) => {
+            return DocResult::Skipped {
+                path: format!("index {}", idx),
+                reason: e.to_string(),
+            };
+        }
+    };
 
     // Read the entire DOCX into memory
     let mut buffer = Vec::new();

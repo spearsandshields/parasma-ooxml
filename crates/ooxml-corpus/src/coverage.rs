@@ -312,7 +312,9 @@ pub fn extract_coverage_from_reader<R: Read + Seek>(
     let mut other_xml_files: Vec<String> = Vec::new();
     for i in 0..archive.len() {
         if let Ok(file) = archive.by_index(i) {
-            let name = file.name().to_string();
+            let Ok(name) = file.name().map(|n| n.into_owned()) else {
+                continue;
+            };
             if name.ends_with(".xml") && !xml_parts.contains(&name.as_str()) {
                 other_xml_files.push(name);
             }
